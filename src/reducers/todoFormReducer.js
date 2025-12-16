@@ -4,11 +4,11 @@ export function todoFormReducer(state,action){
         case "SET_TITLE":
             return {...state,title:action.value};
          case "SET_TAG":
-            return {...state,title:action.value};
+            return {...state,tags:[...state.tags,action.value]};
          case "SET_PRIORITY":
-            return {...state,title:action.value};
+            return {...state,priority:action.value};
          case "SET_DATE":
-            return {...state,title:action.value};
+            return {...state,dueDate:action.value};
         default:
             break;
     }

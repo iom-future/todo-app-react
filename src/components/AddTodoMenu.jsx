@@ -1,19 +1,20 @@
-import { useState,useReducer } from "react"
+import { useState,useReducer,useEffect } from "react"
 import { todoFormReducer } from "../reducers/todoFormReducer";
-function AddTodoMenu({todoMenuToggleState,setTodoMenuToggleState}) {
-   let initialState = {title:"",tags:[],dueDate:0}
-    let [todoInfo,setTodoInfo] = useState({todoTitle:"",todoTags:[],todoDueDate:0})
-    //used useReducer hook cause im setting multiple state at once
-    let [todoState,dispatch]=useReducer(todoFormReducer,initialState); 
-    const submitTodo = (e)=>{
-        e.preventDefault()
-        setTodoInfo((currentTodo)=>{
-            return {...currentTodo,todoTitle:todoState.title,todoTags:[...todoState.tags],todoDueDate:todoState.dueDate}
-        })
-        setTodoMenuToggleState(!todoMenuToggleState)
-       console.log("Todo Added")
+import TodoInfoProvider from "./TodoInfoContext";
+function AddTodoMenu({todoMenuToggleState,setTodoMenuToggleState,todoState,dispatch,setAddTodo,addTodoState}) {
+
+    function submitTodo(e) {
+        e.preventDefault();
+        // setTodoInfo((currentTodo)=>{
+        //     return {...currentTodo,todoTitle:todoState.title,todoTags:[...todoState.tags],todoDueDate:todoState.dueDate}
+        // })
+        setTodoMenuToggleState(!todoMenuToggleState);
+        setAddTodo(!addTodoState);
+        console.log("Todo Added");
     }
-  
+  useEffect(()=>{
+    // console.log(todoState)
+  },[todoState])
   return (
     <div className="absolute w-full h-screen bg-black/50 top-0 flex p-5 justify-center flex-col backdrop-blur-md gap-7">
         <h2 className="text-3xl text-white font-medium text-center " >Add Todo</h2>
@@ -51,6 +52,9 @@ function AddTodoMenu({todoMenuToggleState,setTodoMenuToggleState}) {
            
             <button type="submit" className="w-full p-3  rounded-xl text-xl font-semibold text-white bg-green-500">Add Task</button>
         </form>
+
+    
+       
     </div>
   )
 }
