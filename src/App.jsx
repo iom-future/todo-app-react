@@ -15,12 +15,12 @@ function App() {
     },1000)
   }
     // the state should be passed where the Context Provider Component can receive it as a prop as it gives its children
-     let initialState = {id:0 ,title:"",tags:[],priority:"none",dueDate:0}
+     let initialState = {id:0 ,title:"",tags:"default",priority:"none",dueDate:0}
     //used useReducer hook cause im setting multiple state at once
     let [todoState,dispatch]=useReducer(todoFormReducer,initialState);
 
   return (
-    <div className='bg-gray-200 min-h-screen relative' >
+    <div className='bg-[#FAFAF9] min-h-screen relative' >
       <Header/>
       {todoMenuToggle && <AddTodoMenu todoMenuToggleState={todoMenuToggle} setTodoMenuToggleState={setTodoMenuToggle} todoState={todoState} dispatch={dispatch} setAddTodo={setAddTodo} addTodoState={addTodo} />}
      
