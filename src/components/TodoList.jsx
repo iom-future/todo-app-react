@@ -1,7 +1,8 @@
 //the todos being displayed on the screen isn't a state but reflect a state
 import { useState,useContext, useEffect } from "react"
 import { TodoInfoContext } from "./TodoInfoContext"
-import { createPortal } from "react-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 function TodoList({addTodo}) {
     let {todoState,dispatch} = useContext(TodoInfoContext);
     let [todos,setTodos]=useState([])
@@ -75,8 +76,13 @@ function TodoList({addTodo}) {
                             <input type="checkbox" className=" w-full accent-green-600 size-9" onChange={checkGoal} id={todo.id} />
                         </div>
                         
-                        <div className="todo-info  bg-white border-l-2 border-[{}] w-[90%] p-2 pl-3 rounded-lg">
-                            <h3 className={`font-semibold text-lg mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
+                        <div className="todo-info  bg-white border-l-2  w-[90%] p-2 pl-3 rounded-lg">
+                           <div className="flex justify-between items-center">
+                             <h3 className={`font-semibold text-lg mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
+                                <FontAwesomeIcon icon={faPen} size="xs" />
+                               
+                           </div>
+                           
                             <p className="text-sm bg-green-200 p-1 pl-2 inline-block w-1/4 rounded-lg">{todo.tags}</p>
                         </div>
                     
