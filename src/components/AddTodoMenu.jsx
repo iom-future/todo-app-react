@@ -16,7 +16,7 @@ function AddTodoMenu({todoMenuToggleState,setTodoMenuToggleState,todoState,dispa
     // console.log(todoState)
   },[todoState])
   return (
-    <div className="absolute w-full h-screen bg-black/50 top-0 flex p-5 justify-center flex-col backdrop-blur-md gap-7">
+    <div className="fixed w-full h-screen bg-black/50 top-0 flex p-5 justify-center flex-col backdrop-blur-md gap-7">
         <h2 className="text-3xl text-white font-medium text-center " >Add Todo</h2>
         <form action="" onSubmit={submitTodo} className="flex flex-col gap-6">
             <div>

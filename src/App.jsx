@@ -6,6 +6,8 @@ import AddTodoMenu from './components/AddTodoMenu'
 import TodoInfoProvider from './components/TodoInfoContext'
 import { todoFormReducer } from './reducers/todoFormReducer'
 import { useReducer } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 function App() {
   let [todoMenuToggle,setTodoMenuToggle] =useState(false)
   let [addTodo,setAddTodo]=useState(false)
@@ -36,7 +38,7 @@ function App() {
     
      
 
-     <button onClick={()=>{setTodoMenuToggle(!todoMenuToggle)}}>Add todo</button>
+     <button className="p-2 bg-green-500 rounded-full size-12 fixed right-2 bottom-2" onClick={()=>{setTodoMenuToggle(!todoMenuToggle)}}><FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}}  /></button>
     </div>
   )
 }
