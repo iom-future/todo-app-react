@@ -18,14 +18,19 @@ function App() {
      let initialState = {id:0 ,title:"",tags:"default",priority:"none",dueDate:0,isCompleted:false}
     //used useReducer hook cause im setting multiple state at once
     let [todoState,dispatch]=useReducer(todoFormReducer,initialState);
+     let value={
+          todoState,
+          dispatch
 
+        }
   return (
     <div className='bg-[#FAFAF9] min-h-screen relative' >
       <Header/>
       {todoMenuToggle && <AddTodoMenu todoMenuToggleState={todoMenuToggle} setTodoMenuToggleState={setTodoMenuToggle} todoState={todoState} dispatch={dispatch} setAddTodo={setAddTodo} addTodoState={addTodo} />}
      
         {/*when passing props and children to a contextAPI component, wherever pass the props there you should pass the children */}
-     <TodoInfoProvider todoState={todoState}>
+     
+     <TodoInfoProvider value={value} >
         <TodoList addTodo={addTodo}/>
      </TodoInfoProvider>
     

@@ -9,6 +9,8 @@ export function todoFormReducer(state,action){
             return {...state,priority:action.value};
          case "SET_DATE":
             return {...state,dueDate:action.value};
+        case "RESET":
+            return {id:0,title:"",tags:"default",priority:"none",dueDate:0,isCompleted:false}
         default:
             break;
     }

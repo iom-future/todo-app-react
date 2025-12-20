@@ -3,7 +3,7 @@ import { useState,useContext, useEffect } from "react"
 import { TodoInfoContext } from "./TodoInfoContext"
 import { createPortal } from "react-dom"
 function TodoList({addTodo}) {
-    let todoState = useContext(TodoInfoContext);
+    let {todoState,dispatch} = useContext(TodoInfoContext);
     let [todos,setTodos]=useState([])
     let [completedTodos,setCompletedTodos] =useState([])
     useEffect(()=>{
@@ -11,7 +11,10 @@ function TodoList({addTodo}) {
             setTodos((currentTodo)=>{
             return [...currentTodo,{id:currentTodo.length, title:todoState.title,tags:todoState.tags,priority:todoState.priority,date:todoState.dueDate,isCompleted:todoState.isCompleted}]
         })
-        }
+        //anytime a goal is addeed reset the form todo state
+        dispatch({type:"RESET"})
+                }
+        console.log(todos)
     },[addTodo])
 
     useEffect(() => {
@@ -48,6 +51,14 @@ function TodoList({addTodo}) {
         // console.log(todos)
         // console.log("checked goal")
     }
+
+    //priority class mapping
+    const priorityBorderColor ={
+        none:"border-l-gray-300",
+        low: "border-l-green-300",
+        medium:"border-l-yellow-300",
+        high:"border-l-red-300"
+    }
   return (
     <section className="mt-5 flex flex-col md:flex-row gap-5 md:justify-between">
 
@@ -59,7 +70,7 @@ function TodoList({addTodo}) {
 
             <div className="todo-list-area grid grid-cols-1 gap-2 mt-3">
                 {!todos.length>0 ? <h3 className="text-2xl font-semibold text-center text-gray-400 ">All Task Completed</h3>:todos.map((todo)=>(
-                    <div key={todo.id} className="flex w-[90%] gap-2 border-2 border-l-yellow-200 border-l-3 rounded-xl mx-auto p-2 items-center">
+                    <div key={todo.id} className={`flex w-[90%] gap-2 border-2  ${priorityBorderColor[todo.priority]} rounded-xl mx-auto p-2 items-center`}>
                         <div className="p-2 h-full flex items-center  w-[10%] " >
                             <input type="checkbox" className=" w-full accent-green-600 size-9" onChange={checkGoal} id={todo.id} />
                         </div>
@@ -83,9 +94,9 @@ function TodoList({addTodo}) {
             </header>
          <div className="todo-list-area grid grid-cols-1 gap-2 mt-3">
             {!completedTodos.length>0 ? <h3 className="text-2xl font-semibold text-center text-gray-400 " >No Completed Todo Yet</h3>:completedTodos.map((todo)=>(
-                <div key={Math.random()} className="flex w-[90%] gap-2 border-2 border-l-yellow-200 border-l-3 rounded-xl mx-auto p-2 items-center">
+                <div key={Math.random()} className="flex w-[90%] gap-2 border-2 border-l-green-200 border-l-3 rounded-xl mx-auto p-2 items-center">
                     <div className="p-2 h-full flex items-center  w-[10%] " >
-                        <input type="checkbox" className=" w-full accent-green-600 size-9"  id={todo.id} checked />
+                        <input type="checkbox" className=" w-full accent-green-600 size-9"  id={todo.id} defaultChecked />
                     </div>
                     
                     <div className="todo-info  bg-white border-l-2 border-[{}] w-[90%] p-2 pl-3 rounded-lg">

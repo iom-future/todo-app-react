@@ -22,7 +22,7 @@ function AddTodoMenu({todoMenuToggleState,setTodoMenuToggleState,todoState,dispa
             <div>
                 <label htmlFor="todo-title" className="font-medium text-white text-lg">Title: </label>
                 <br />
-                <input type="text" placeholder="what would yo like to do" id="todo-title" className="w-full p-2 rounded-xl mt-2" onChange={(e)=>{dispatch({type:"SET_TITLE",value:e.target.value})}} required/>
+                <input type="text" placeholder="what would you like to do" id="todo-title" className="w-full p-2 rounded-xl mt-2" onChange={(e)=>{dispatch({type:"SET_TITLE",value:e.target.value})}} required/>
             </div>
             
             <div>
@@ -34,9 +34,10 @@ function AddTodoMenu({todoMenuToggleState,setTodoMenuToggleState,todoState,dispa
             <div className="w-1/2">
                 <label htmlFor="todo-priority" className="font-medium text-white text-lg">Priority</label><br />
                 <select name="priority" id="todo-priority" className="w-full h-3/5 p-2 rounded-xl mt-2"  onChange={(e)=>{dispatch({type:"SET_PRIORITY",value:e.target.value})}}>
-                    <option value="High">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">High</option>
+                    <option value="none">None</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
                 </select>
             </div>
                 
