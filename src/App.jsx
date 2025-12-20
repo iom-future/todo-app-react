@@ -15,7 +15,7 @@ function App() {
     },1000)
   }
     // the state should be passed where the Context Provider Component can receive it as a prop as it gives its children
-     let initialState = {id:0 ,title:"",tags:"default",priority:"none",dueDate:0}
+     let initialState = {id:0 ,title:"",tags:"default",priority:"none",dueDate:0,isCompleted:false}
     //used useReducer hook cause im setting multiple state at once
     let [todoState,dispatch]=useReducer(todoFormReducer,initialState);
 
