@@ -38,7 +38,7 @@ function App() {
     
      
 
-     <button className="p-2 bg-green-500 rounded-full size-12 fixed right-2 bottom-2" onClick={()=>{setTodoMenuToggle(!todoMenuToggle)}}><FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}}  /></button>
+     <button className="p-2 bg-green-500 rounded-full size-12 fixed right-2 bottom-2 transition-all duration-300 ease-in-out hover:-translate-y-2 " onClick={(e)=>{setTodoMenuToggle(!todoMenuToggle);e.currentTarget.classList.toggle("rotate-45")}}><FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}}  /></button>
     </div>
   )
 }

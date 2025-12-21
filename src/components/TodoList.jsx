@@ -70,7 +70,7 @@ function TodoList({addTodo}) {
             </header>
 
             <div className="todo-list-area grid grid-cols-1 gap-2 mt-3">
-                {!todos.length>0 ? <h3 className="text-2xl font-semibold text-center text-gray-400 ">All Task Completed</h3>:todos.map((todo)=>(
+                {!todos.length>0 ? <h3 className="text-lg font-semibold text-center text-gray-400 ">All Task Completed</h3>:todos.map((todo)=>(
                     <div key={todo.id} className={`flex w-[90%] gap-2 border-2  ${priorityBorderColor[todo.priority]} rounded-xl mx-auto p-2 items-center`}>
                         <div className="p-2 h-full flex items-center  w-[10%] " >
                             <input type="checkbox" className=" w-full accent-green-600 size-9" onChange={checkGoal} id={todo.id} />
@@ -99,7 +99,7 @@ function TodoList({addTodo}) {
                 <h5 > <span className="font-medium text-lg text-green-900 p-1 bg-green-100 rounded-full ">{completedTodos.length}</span></h5>
             </header>
          <div className="todo-list-area grid grid-cols-1 gap-2 mt-3">
-            {!completedTodos.length>0 ? <h3 className="text-2xl font-semibold text-center text-gray-400 " >No Completed Todo Yet</h3>:completedTodos.map((todo)=>(
+            {!completedTodos.length>0 ? <h3 className="text-lg font-semibold text-center text-gray-400 " >No Completed Todo Yet</h3>:completedTodos.map((todo)=>(
                 <div key={Math.random()} className="flex w-[90%] gap-2 border-2 border-l-green-200 border-l-3 rounded-xl mx-auto p-2 items-center">
                     <div className="p-2 h-full flex items-center  w-[10%] " >
                         <input type="checkbox" className=" w-full accent-green-600 size-9"  id={todo.id} defaultChecked />

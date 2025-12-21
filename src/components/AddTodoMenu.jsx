@@ -1,6 +1,9 @@
 import { useState,useReducer,useEffect } from "react"
 import { todoFormReducer } from "../reducers/todoFormReducer";
 import TodoInfoProvider from "./TodoInfoContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
+
 function AddTodoMenu({todoMenuToggleState,setTodoMenuToggleState,todoState,dispatch,setAddTodo,addTodoState}) {
 
     function submitTodo(e) {
