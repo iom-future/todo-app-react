@@ -4,13 +4,20 @@ import Header from './components/Header'
 import TodoList from './components/TodoList'
 import AddTodoMenu from './components/AddTodoMenu'
 import TodoInfoProvider from './components/TodoInfoContext'
+
 import { todoFormReducer } from './reducers/todoFormReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 function App() {
   let addBtn = useRef(null);
+  //for toggling the form to add todos
   let [todoMenuToggle,setTodoMenuToggle] =useState(false)
+
   let [addTodo,setAddTodo]=useState(false)
+
+ 
+  //reset the state: if a todo is added, to the original form "false"; no "new" todo added yet
+  //without this line the system still thinks a todo is being added, thus not accepting other todos
   if(addTodo){
     setTimeout(()=>{
         setAddTodo(!addTodo)
@@ -29,6 +36,8 @@ function App() {
     <div className='bg-[#FAFAF9] min-h-screen relative' >
       <Header/>
       {todoMenuToggle && <AddTodoMenu todoMenuToggleState={todoMenuToggle} setTodoMenuToggleState={setTodoMenuToggle} todoState={todoState} dispatch={dispatch} setAddTodo={setAddTodo} addTodoState={addTodo} addBtn={addBtn}/>}
+
+      
      
         {/*when passing props and children to a contextAPI component, wherever pass the props there you should pass the children */}
      

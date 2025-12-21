@@ -1,10 +1,14 @@
 //the todos being displayed on the screen isn't a state but reflect a state
 import { useState,useContext, useEffect } from "react"
 import { TodoInfoContext } from "./TodoInfoContext"
+import UpdateTodoForm from './UpdateTodoForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 function TodoList({addTodo}) {
+    //consume from TodoInfoContext to update the form state after goal is being added
     let {todoState,dispatch} = useContext(TodoInfoContext);
+    //for toggling the form that helps update todos
+    let [updateTodoFormToggle,setUpdateTodoFormToggle]= useState(false)
     let [todos,setTodos]=useState(()=>{
         //retrieve saved todo
         let savedTodos = localStorage.getItem("todos");
@@ -13,12 +17,20 @@ function TodoList({addTodo}) {
     })
     let [completedTodos,setCompletedTodos] =useState([]);
 
+    //save selected todo for editing
+    let [selectedTodo,setSelectedTodo]=useState([])
 
 
     useEffect(()=>{
+
+       //if the 
          if(addTodo){
             setTodos((currentTodo)=>{
-            return [...currentTodo,{id:currentTodo.length, title:todoState.title,tags:todoState.tags,priority:todoState.priority,date:todoState.dueDate,isCompleted:todoState.isCompleted}]
+                //currentTodo.at(-1): used to get the last index of an array
+               /*  currentTodo.at(-1).id+1: makes sure that each ID is gotten from the increment of the last ID,
+               in order to avoid duplicate ID if one element is removed(thats if we were using the array length)
+               */
+            return [...currentTodo,{id:currentTodo.length>0?currentTodo.at(-1).id+1:currentTodo.length, title:todoState.title,tags:todoState.tags,priority:todoState.priority,date:todoState.dueDate,isCompleted:todoState.isCompleted}]
         })
         //anytime a goal is added reset the form todo state
         dispatch({type:"RESET"})
@@ -51,7 +63,16 @@ function TodoList({addTodo}) {
        //anytime changes happen to the todos, saved that changes automatically
        localStorage.setItem("todos",JSON.stringify(todos))
 }, [todos]);
-//remove the completed todo from todos when added to completed todo
+
+    //spring up update form
+    const editTodo= (e)=>{
+        //bring up the menu
+        setUpdateTodoFormToggle(!updateTodoFormToggle);
+
+        //get the todo user wants to  edit
+        setSelectedTodo(todos.find((todo) => todo.id === Number(e.target.id)))
+        console.log("todo has been selected",e.target.id)
+    }
 
 
     const checkGoal = (e)=>{
@@ -62,6 +83,10 @@ function TodoList({addTodo}) {
         // console.log(todos)
         // console.log("checked goal")
     }
+
+    useEffect(()=>{
+        console.log(`the selected to from the useEffect is: ${selectedTodo}`)
+    },[selectedTodo])
 
     //priority class mapping
     const priorityBorderColor ={
@@ -89,7 +114,7 @@ function TodoList({addTodo}) {
                         <div className="todo-info  bg-white border-l-2  w-[90%] p-2 pl-3 rounded-lg">
                            <div className="flex justify-between items-center">
                              <h3 className={`font-semibold text-lg mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
-                                <FontAwesomeIcon icon={faPen} size="xs" />
+                                <FontAwesomeIcon icon={faPen} size="xs" onClick={editTodo} id={todo.id} />
                                
                            </div>
                            
@@ -127,6 +152,9 @@ function TodoList({addTodo}) {
 
         </div>
        
+       <section className="update-form">
+            {updateTodoFormToggle && <UpdateTodoForm todoToEdit={selectedTodo}/>}
+       </section>
     </section>
   )
 }
