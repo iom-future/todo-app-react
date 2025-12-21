@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { useState } from 'react'
+import { useState,useReducer, useRef  } from 'react'
 import Header from './components/Header'
 import TodoList from './components/TodoList'
 import AddTodoMenu from './components/AddTodoMenu'
 import TodoInfoProvider from './components/TodoInfoContext'
 import { todoFormReducer } from './reducers/todoFormReducer'
-import { useReducer } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 function App() {
+  let addBtn = useRef(null);
   let [todoMenuToggle,setTodoMenuToggle] =useState(false)
   let [addTodo,setAddTodo]=useState(false)
   if(addTodo){
@@ -28,17 +28,18 @@ function App() {
   return (
     <div className='bg-[#FAFAF9] min-h-screen relative' >
       <Header/>
-      {todoMenuToggle && <AddTodoMenu todoMenuToggleState={todoMenuToggle} setTodoMenuToggleState={setTodoMenuToggle} todoState={todoState} dispatch={dispatch} setAddTodo={setAddTodo} addTodoState={addTodo} />}
+      {todoMenuToggle && <AddTodoMenu todoMenuToggleState={todoMenuToggle} setTodoMenuToggleState={setTodoMenuToggle} todoState={todoState} dispatch={dispatch} setAddTodo={setAddTodo} addTodoState={addTodo} addBtn={addBtn}/>}
      
         {/*when passing props and children to a contextAPI component, wherever pass the props there you should pass the children */}
      
      <TodoInfoProvider value={value} >
         <TodoList addTodo={addTodo}/>
      </TodoInfoProvider>
+
     
      
 
-     <button className="p-2 bg-green-500 rounded-full size-12 fixed right-2 bottom-2 transition-all duration-300 ease-in-out hover:-translate-y-2 " onClick={(e)=>{setTodoMenuToggle(!todoMenuToggle);e.currentTarget.classList.toggle("rotate-45")}}><FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}}  /></button>
+     <button className="p-2 bg-green-500 rounded-full size-12 fixed right-2 bottom-2 transition-all duration-300 ease-in-out hover:-translate-y-2 " onClick={(e)=>{setTodoMenuToggle(!todoMenuToggle);e.currentTarget.classList.toggle("rotate-45")}}><FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}} ref={addBtn} /></button>
     </div>
   )
 }

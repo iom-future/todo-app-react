@@ -4,7 +4,7 @@ import TodoInfoProvider from "./TodoInfoContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 
-function AddTodoMenu({todoMenuToggleState,setTodoMenuToggleState,todoState,dispatch,setAddTodo,addTodoState}) {
+function AddTodoMenu({todoMenuToggleState,setTodoMenuToggleState,todoState,dispatch,setAddTodo,addTodoState,addBtn}) {
 
     function submitTodo(e) {
         e.preventDefault();
@@ -13,6 +13,8 @@ function AddTodoMenu({todoMenuToggleState,setTodoMenuToggleState,todoState,dispa
         // })
         setTodoMenuToggleState(!todoMenuToggleState);
         setAddTodo(!addTodoState);
+        //rotate the btn used for adding goal, back to original position[when a goal get added]
+        addBtn.current.classList.add("rotate-45");
         console.log("Todo Added");
     }
   useEffect(()=>{

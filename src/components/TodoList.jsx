@@ -110,7 +110,7 @@ function TodoList({addTodo}) {
             </header>
          <div className="todo-list-area grid grid-cols-1 gap-2 mt-3">
             {!completedTodos.length>0 ? <h3 className="text-lg font-semibold text-center text-gray-400 " >No Completed Todo Yet</h3>:completedTodos.map((todo)=>(
-                <div key={Math.random()} className="flex w-[90%] gap-2 border-2 border-l-green-200 border-l-3 rounded-xl mx-auto p-2 items-center">
+                <div key={todo.id} className="flex w-[90%] gap-2 border-2 border-l-green-200 border-l-3 rounded-xl mx-auto p-2 items-center">
                     <div className="p-2 h-full flex items-center  w-[10%] " >
                         <input type="checkbox" className=" w-full accent-green-600 size-9"  id={todo.id} defaultChecked />
                     </div>
