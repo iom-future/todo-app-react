@@ -5,21 +5,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 function TodoList({addTodo}) {
     let {todoState,dispatch} = useContext(TodoInfoContext);
-    let [todos,setTodos]=useState([])
-    let [completedTodos,setCompletedTodos] =useState([])
+    let [todos,setTodos]=useState(()=>{
+        //retrieve saved todo
+        let savedTodos = localStorage.getItem("todos");
+        //set saved data as the current todo,if there is any, else set an empty string
+        return  savedTodos? JSON.parse(savedTodos):[];
+    })
+    let [completedTodos,setCompletedTodos] =useState([]);
+
+
+
     useEffect(()=>{
          if(addTodo){
             setTodos((currentTodo)=>{
             return [...currentTodo,{id:currentTodo.length, title:todoState.title,tags:todoState.tags,priority:todoState.priority,date:todoState.dueDate,isCompleted:todoState.isCompleted}]
         })
-        //anytime a goal is addeed reset the form todo state
+        //anytime a goal is added reset the form todo state
         dispatch({type:"RESET"})
                 }
         console.log(todos)
     },[addTodo])
 
     useEffect(() => {
-        //check if the todos array has taskes that are completed
+        //check if the todos array has tasks that are completed
         let hasCompleted = todos.some((todo)=>todo.isCompleted===true);
 
         //get the task that was completed
@@ -35,11 +43,13 @@ function TodoList({addTodo}) {
       
     
 
-       //remove all the completed taskes from the todos, if there is any, an return an array of incompleted ones
+       //remove all the completed tasks from the todos, if there is any, and return an array of in-completed ones
        if(hasCompleted){
             setTodos(todos.filter(todo=>todo.isCompleted!==true))
        }
        
+       //anytime changes happen to the todos, saved that changes automatically
+       localStorage.setItem("todos",JSON.stringify(todos))
 }, [todos]);
 //remove the completed todo from todos when added to completed todo
 
