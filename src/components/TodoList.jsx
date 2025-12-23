@@ -18,7 +18,7 @@ function TodoList({addTodo}) {
     let [completedTodos,setCompletedTodos] =useState([]);
 
     //save selected todo for editing
-    let [selectedTodo,setSelectedTodo]=useState([])
+    let [selectedTodo,setSelectedTodo]=useState({}) //make it an object
 
 
     useEffect(()=>{
@@ -64,21 +64,29 @@ function TodoList({addTodo}) {
        localStorage.setItem("todos",JSON.stringify(todos))
 }, [todos]);
 
-    //spring up update form
+    
     const editTodo= (e)=>{
-        //bring up the menu
+
+        //get the todo user wants to edit
+        setSelectedTodo(todos.find((todo) => todo.id === Number(e.target.id)))
+
+
+        //spring up update form
         setUpdateTodoFormToggle(!updateTodoFormToggle);
 
-        //get the todo user wants to  edit
-        setSelectedTodo(todos.find((todo) => todo.id === Number(e.target.id)))
         console.log("todo has been selected",e.target.id)
+      
+        
     }
 
+    // useEffect(()=>{
+    //         console.log(selectedTodo)
+    // },[selectedTodo])
 
     const checkGoal = (e)=>{
         //when a goal is checked pick the goal and change is isCompleted to true
        setTodos(
-        todos.map(todo=>todo.id===Number(e.target.id)?{...todo,isCompleted:!todo.isCompleted}:todo)
+            todos.map(todo=>todo.id===Number(e.target.id)?{...todo,isCompleted:!todo.isCompleted}:todo)
        )
         // console.log(todos)
         // console.log("checked goal")
@@ -118,7 +126,7 @@ function TodoList({addTodo}) {
                                
                            </div>
                            
-                            <p className="text-sm bg-green-200 p-1 pl-2 inline-block w-1/4 rounded-lg">{todo.tags}</p>
+                            <p className="text-sm bg-green-200 p-1 pl-2 inline-block  rounded-lg">{todo.tags}</p>
                         </div>
                     
                     </div>
@@ -142,7 +150,7 @@ function TodoList({addTodo}) {
                     
                     <div className="todo-info  bg-white border-l-2 border-[{}] w-[90%] p-2 pl-3 rounded-lg">
                         <h3 className={`font-semibold text-lg mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
-                        <p className="text-sm bg-green-200 p-1 pl-2 inline-block w-1/4 rounded-lg">{todo.tags}</p>
+                        <p className="text-sm bg-green-200 p-1 pl-2 inline-block  rounded-lg">{todo.tags}</p>
                     </div>
                    
                 </div>
@@ -151,9 +159,9 @@ function TodoList({addTodo}) {
         </div>
 
         </div>
-       
+            <button onClick={(e)=>localStorage.clear()}>Clearrrr</button>
        <section className="update-form">
-            {updateTodoFormToggle && <UpdateTodoForm todoToEdit={selectedTodo}/>}
+            {updateTodoFormToggle && <UpdateTodoForm todoToEdit={selectedTodo} todos={todos} setTodos={setTodos} setUpdateTodoFormToggle={setUpdateTodoFormToggle} updateTodoFormToggle={updateTodoFormToggle} />}
        </section>
     </section>
   )
