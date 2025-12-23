@@ -83,13 +83,31 @@ function TodoList({addTodo}) {
     //         console.log(selectedTodo)
     // },[selectedTodo])
 
-    const checkGoal = (e)=>{
+    const checkTodo = (e)=>{
         //when a goal is checked pick the goal and change is isCompleted to true
        setTodos(
             todos.map(todo=>todo.id===Number(e.target.id)?{...todo,isCompleted:!todo.isCompleted}:todo)
        )
         // console.log(todos)
         // console.log("checked goal")
+    }
+    const reverseCheckedTodo = (e)=>{
+        //get the unchecked todo
+        let uncheckedTodo = completedTodos.find((completedTodo)=>completedTodo.id===Number(e.target.id))
+        //change the state of the unChecked todo to not being completed
+        uncheckedTodo.isCompleted = false;
+        // remove the unchecked todo from the completed todo 
+         setCompletedTodos((currentCompletedTodo)=>{
+            return currentCompletedTodo.filter(completedTodo => completedTodo.id!==Number(e.target.id))
+         }
+       )
+
+       //add it back to the [current] to array
+        setTodos(
+            (currentTodo)=>{
+                return [...currentTodo,uncheckedTodo];
+            }
+       )
     }
 
     useEffect(()=>{
@@ -116,7 +134,7 @@ function TodoList({addTodo}) {
                 {!todos.length>0 ? <h3 className="text-lg font-semibold text-center text-gray-400 ">All Task Completed</h3>:todos.map((todo)=>(
                     <div key={todo.id} className={`flex w-[90%] gap-2 border-2  ${priorityBorderColor[todo.priority]} rounded-xl mx-auto p-2 items-center`}>
                         <div className="p-2 h-full flex items-center  w-[10%] " >
-                            <input type="checkbox" className=" w-full accent-green-600 size-9" onChange={checkGoal} id={todo.id} />
+                            <input type="checkbox" className=" w-full accent-green-600 size-9" onChange={checkTodo} id={todo.id} />
                         </div>
                         
                         <div className="todo-info  bg-white border-l-2  w-[90%] p-2 pl-3 rounded-lg">
@@ -145,10 +163,10 @@ function TodoList({addTodo}) {
             {!completedTodos.length>0 ? <h3 className="text-lg font-semibold text-center text-gray-400 " >No Completed Todo Yet</h3>:completedTodos.map((todo)=>(
                 <div key={todo.id} className="flex w-[90%] gap-2 border-2 border-l-green-200 border-l-3 rounded-xl mx-auto p-2 items-center">
                     <div className="p-2 h-full flex items-center  w-[10%] " >
-                        <input type="checkbox" className=" w-full accent-green-600 size-9"  id={todo.id} defaultChecked />
+                        <input type="checkbox" className=" w-full accent-green-600 size-9" onChange={reverseCheckedTodo}  id={todo.id} defaultChecked />
                     </div>
                     
-                    <div className="todo-info  bg-white border-l-2 border-[{}] w-[90%] p-2 pl-3 rounded-lg">
+                    <div className="todo-info  bg-white border-l-2 w-[90%] p-2 pl-3 rounded-lg">
                         <h3 className={`font-semibold text-lg mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
                         <p className="text-sm bg-green-200 p-1 pl-2 inline-block  rounded-lg">{todo.tags}</p>
                     </div>
