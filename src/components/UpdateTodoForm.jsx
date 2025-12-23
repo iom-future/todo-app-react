@@ -19,7 +19,7 @@ function UpdateTodoForm({todoToEdit,setTodos,todos,setUpdateTodoFormToggle,updat
         })
         //remove form
         setUpdateTodoFormToggle(!updateTodoFormToggle)
-            console.log(todos)
+           
     }
 
     useEffect(()=>{
@@ -27,13 +27,14 @@ function UpdateTodoForm({todoToEdit,setTodos,todos,setUpdateTodoFormToggle,updat
     
     },[todos])
   return (
-    <div className="fixed w-full h-screen bg-black/50 top-0 flex p-5 justify-center flex-col backdrop-blur-md gap-7">
+    <div className="fixed w-full h-screen bg-black/50 top-0 flex p-5 z-50 justify-center flex-col backdrop-blur-md gap-7">
+        <FontAwesomeIcon icon={faX} className="text-white " onClick={()=>setUpdateTodoFormToggle(!updateTodoFormToggle)} />
         <h2 className="text-3xl text-white font-medium text-center " >Edit Todo</h2>
         <form action="" onSubmit={editTodo} className="flex flex-col gap-6">
             <div>
                 <label htmlFor="todo-title" className="font-medium text-white text-lg">Title: </label>
                 <br />
-                <input type="text" placeholder={todoToEdit.title} id="todo-title" className="w-full p-2 rounded-xl mt-2" onChange={(e)=>{dispatch({type:"EDIT_TITLE",value:e.target.value})}} required/>
+                <input type="text" placeholder={todoToEdit.title} id="todo-title" className="w-full p-2 rounded-xl mt-2" onChange={(e)=>{dispatch({type:"EDIT_TITLE",value:e.target.value})}} />
             </div>
             
             <div>
@@ -55,7 +56,7 @@ function UpdateTodoForm({todoToEdit,setTodos,todos,setUpdateTodoFormToggle,updat
 
                  <div className="w-1/2">
                     <label htmlFor="todo-due-date" className="font-medium text-white text-lg">Due Date:</label><br />
-                    <input type="date" name="todo-due-date" id="todo-due-date" placeholder="Do before when" className="w-full p-2 h-3/5 rounded-xl mt-2" defaultValue={todoToEdit.date} onChange={(e)=>{dispatch({type:"EDIT_DATE",value:e.target.value})}}   required/>
+                    <input type="date" name="todo-due-date" id="todo-due-date" placeholder="Do before when" className="w-full p-2 h-3/5 rounded-xl mt-2" defaultValue={todoToEdit.date} onChange={(e)=>{dispatch({type:"EDIT_DATE",value:e.target.value})}} />
                 </div>
 
                 {/* TODO: ADD min value to date min={}*/}

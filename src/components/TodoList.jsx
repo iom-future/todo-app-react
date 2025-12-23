@@ -126,7 +126,7 @@ function TodoList({addTodo}) {
 
         <div className="todo-container md:p-3">
             <header className="px-5">
-                <h2 className= "font-semibold text-center text-2xl md:mb-2">Todos</h2>
+                <h2 className= "font-semibold text-xl mb-2">Todos</h2>
                 <h5 > <span className="font-medium text-lg text-green-900 p-1 bg-green-100 rounded-full  ">{todos.length}</span></h5>
             </header>
 
@@ -156,12 +156,12 @@ function TodoList({addTodo}) {
         
         <div className="completed-todo-container md:p-3">
             <header className="px-5">
-                <h2 className= "font-semibold text-center text-2xl md:mb-2">Completed Todos</h2>
+                <h2 className= "font-medium text-lg mb-2">Completed Todos</h2>
                 <h5 > <span className="font-medium text-lg text-green-900 p-1 bg-green-100 rounded-full ">{completedTodos.length}</span></h5>
             </header>
          <div className="todo-list-area grid grid-cols-1 gap-2 mt-3">
             {!completedTodos.length>0 ? <h3 className="text-lg font-semibold text-center text-gray-400 " >No Completed Todo Yet</h3>:completedTodos.map((todo)=>(
-                <div key={todo.id} className="flex w-[90%] gap-2 border-2 border-l-green-200 border-l-3 rounded-xl mx-auto p-2 items-center">
+                <div key={todo.id} className="flex w-[90%] gap-2 border-2 rounded-xl mx-auto p-2 items-center">
                     <div className="p-2 h-full flex items-center  w-[10%] " >
                         <input type="checkbox" className=" w-full accent-green-600 size-9" onChange={reverseCheckedTodo}  id={todo.id} defaultChecked />
                     </div>
@@ -177,7 +177,7 @@ function TodoList({addTodo}) {
         </div>
 
         </div>
-            <button onClick={(e)=>localStorage.clear()}>Clearrrr</button>
+            {/* <button onClick={(e)=>localStorage.clear()}>Clearrrr</button> */}
        <section className="update-form">
             {updateTodoFormToggle && <UpdateTodoForm todoToEdit={selectedTodo} todos={todos} setTodos={setTodos} setUpdateTodoFormToggle={setUpdateTodoFormToggle} updateTodoFormToggle={updateTodoFormToggle} />}
        </section>
