@@ -2,11 +2,14 @@
 import { useState,useContext, useEffect } from "react"
 import { TodoInfoContext } from "./TodoInfoContext"
 import UpdateTodoForm from './UpdateTodoForm'
+import {ThemeContext} from "./ThemeContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPen,faClock,faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 function TodoList({addTodo}) {
     //consume from TodoInfoContext to update the form state after goal is being added
     let {todoState,dispatch} = useContext(TodoInfoContext);
+
+    let {userTheme} =  useContext(ThemeContext)
     //for toggling the form that helps update todos
     let [updateTodoFormToggle,setUpdateTodoFormToggle]= useState(false)
     let [todos,setTodos]=useState(()=>{
@@ -121,30 +124,60 @@ function TodoList({addTodo}) {
         medium:"border-l-yellow-300",
         high:"border-l-red-300"
     }
+
+
+    //date converter
+    const dateConverter=(date)=>{
+       const months = { "01": "Jan", "02": "Feb", "03": "Mar", "04": "Apr", "05": "May", "06": "Jun", "07": "Jul", "08": "Aug", "09": "Sep", 10: "Oct", 11: "Nov", 12: "Dec" };
+
+       let dateArr = date.split("-"); //["year","month","day"]
+       return `${dateArr[2]}, ${months[dateArr[1]]}`
+    }
+
+    let currentDate = new Date();
+    //deadlineCalculator
+    let isDeadline = (date)=>{
+        let dateArr = date.split("-");
+         console.log(dateArr)
+         if((Number(dateArr[1])>currentDate.getMonth()+1||Number(dateArr[2])>currentDate.getDate())||Number(dateArr[0])>currentDate.getFullYear()){
+                return false; //the dueDate is further ahead
+           } 
+            return true; //the current date has passed the due date
+    }
+    
   return (
-    <section className="mt-5 flex flex-col md:flex-row gap-5 md:justify-between">
+    <section className={`pt-5 flex flex-col md:flex-row gap-5 md:justify-between 
+     dark:bg-slate-700 bg-[#FAFAF9] min-h-screen`}>
 
         <div className="todo-container md:p-3">
             <header className="px-5">
-                <h2 className= "font-semibold text-xl mb-2">Todos</h2>
-                <h5 > <span className="font-medium text-lg text-green-900 p-1 bg-green-100 rounded-full  ">{todos.length}</span></h5>
+                <h2 className= "font-semibold text-xl mb-2 text-black dark:text-white">Todos</h2>
+                <h5 className=" "> <span className="font-medium text-md text-green-900 p-1  rounded-full  bg-green-100 ">{todos.length}</span></h5>
             </header>
 
             <div className="todo-list-area grid grid-cols-1 gap-2 mt-3">
-                {!todos.length>0 ? <h3 className="text-lg font-semibold text-center text-gray-400 ">All Task Completed</h3>:todos.map((todo)=>(
-                    <div key={todo.id} className={`flex w-[90%] gap-2 border-2  ${priorityBorderColor[todo.priority]} rounded-xl mx-auto p-2 items-center`}>
-                        <div className="p-2 h-full flex items-center  w-[10%] " >
+                {!todos.length>0 ? <h3 className="text-lg font-semibold text-center text-gray-400">All Task Completed</h3>:todos.map((todo)=>(
+                    <div key={todo.id} className={`flex w-[90%] gap-2 border-2  ${priorityBorderColor[todo.priority]} rounded-xl mx-auto p-1 items-center`}>
+                        <div className="p-2 h-full flex items-center  w-[10%] bg-white rounded-lg" >
                             <input type="checkbox" className=" w-full accent-green-600 size-9" onChange={checkTodo} id={todo.id} />
                         </div>
                         
                         <div className="todo-info  bg-white border-l-2  w-[90%] p-2 pl-3 rounded-lg">
-                           <div className="flex justify-between items-center">
+                           <div className="flex justify-between items-center mb-2">
                              <h3 className={`font-semibold text-lg mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
                                 <FontAwesomeIcon icon={faPen} size="xs" onClick={editTodo} id={todo.id} />
                                
                            </div>
                            
-                            <p className="text-sm bg-green-200 p-1 pl-2 inline-block  rounded-lg">{todo.tags}</p>
+                              <div className="more-info flex justify-between items-center">
+                                <p className="text-sm bg-green-200 px-2 text-green-900 font-medium inline-block  rounded-lg">{todo.tags}</p>
+                                <div className={`date-info flex items-center px-2 rounded-lg font-medium ${isDeadline(todo.date)?"bg-red-200 text-red-900":"bg-gray-200"} `}>
+                                    <FontAwesomeIcon icon={faCalendarCheck} className="" />
+                                     <p className="text-sm">{dateConverter(todo.date)}</p>
+                                </div>
+                             
+                              </div>
+                            
                         </div>
                     
                     </div>
@@ -156,18 +189,20 @@ function TodoList({addTodo}) {
         
         <div className="completed-todo-container md:p-3">
             <header className="px-5">
-                <h2 className= "font-medium text-lg mb-2">Completed Todos</h2>
-                <h5 > <span className="font-medium text-lg text-green-900 p-1 bg-green-100 rounded-full ">{completedTodos.length}</span></h5>
+                <h2 className= "font-medium text-lg mb-2 dark:text-white">Completed Todos</h2>
+                <h5 > <span className="font-medium text-md text-green-900 p-1 bg-green-100 rounded-full ">{completedTodos.length}</span></h5>
             </header>
          <div className="todo-list-area grid grid-cols-1 gap-2 mt-3">
             {!completedTodos.length>0 ? <h3 className="text-lg font-semibold text-center text-gray-400 " >No Completed Todo Yet</h3>:completedTodos.map((todo)=>(
                 <div key={todo.id} className="flex w-[90%] gap-2 border-2 rounded-xl mx-auto p-2 items-center">
-                    <div className="p-2 h-full flex items-center  w-[10%] " >
-                        <input type="checkbox" className=" w-full accent-green-600 size-9" onChange={reverseCheckedTodo}  id={todo.id} defaultChecked />
+                    <div className="p-2 h-full flex items-center  w-[10%] bg-white rounded-lg" >
+                        <input type="checkbox" className=" w-full accent-green-600 size-9 " onChange={reverseCheckedTodo}  id={todo.id} defaultChecked />
                     </div>
                     
                     <div className="todo-info  bg-white border-l-2 w-[90%] p-2 pl-3 rounded-lg">
                         <h3 className={`font-semibold text-lg mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
+
+                     
                         <p className="text-sm bg-green-200 p-1 pl-2 inline-block  rounded-lg">{todo.tags}</p>
                     </div>
                    

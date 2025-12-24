@@ -4,7 +4,8 @@ import Header from './components/Header'
 import TodoList from './components/TodoList'
 import AddTodoMenu from './components/AddTodoMenu'
 import TodoInfoProvider from './components/TodoInfoContext'
-
+import NavBar from "./components/NavBar"
+import ThemeProvider from "./components/ThemeContext"
 import { todoFormReducer } from './reducers/todoFormReducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -33,18 +34,23 @@ function App() {
 
         }
   return (
-    <div className='bg-[#FAFAF9] min-h-screen relative' >
-      <Header/>
-      {todoMenuToggle && <AddTodoMenu todoMenuToggleState={todoMenuToggle} setTodoMenuToggleState={setTodoMenuToggle} todoState={todoState} dispatch={dispatch} setAddTodo={setAddTodo} addTodoState={addTodo} addBtn={addBtn}/>}
+    <div className={` min-h-screen relative`} >
+      <ThemeProvider>
 
+          <NavBar />
+          <Header/>
+          {todoMenuToggle && <AddTodoMenu todoMenuToggleState={todoMenuToggle} setTodoMenuToggleState={setTodoMenuToggle} todoState={todoState} dispatch={dispatch} setAddTodo={setAddTodo} addTodoState={addTodo} addBtn={addBtn}/>}
+
+          
+        
+            {/*when passing props and children to a contextAPI component, wherever pass the props there you should pass the children */}
+        
+          <TodoInfoProvider value={value} >
+              <TodoList addTodo={addTodo}/>
+          </TodoInfoProvider>
+
+      </ThemeProvider>
       
-     
-        {/*when passing props and children to a contextAPI component, wherever pass the props there you should pass the children */}
-     
-     <TodoInfoProvider value={value} >
-        <TodoList addTodo={addTodo}/>
-     </TodoInfoProvider>
-
     
      
 
