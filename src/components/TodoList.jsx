@@ -150,7 +150,7 @@ function TodoList({addTodo}) {
      dark:bg-slate-700 bg-[#FAFAF9] min-h-screen`}>
 {/* 
 <div className=" "></div> */}
-        <div className="todo-container md:p-3">
+        <div className="todo-container md:p-3 md:w-[45%]">
             <header className="px-5">
                 <h2 className= "font-medium text-md mb-2 text-black/90 dark:text-white/90">Todos</h2>
                 <h5 className=" "> <span className="font-medium text-md text-green-900 p-1  rounded-full  bg-green-100 ">{todos.length}</span></h5>
@@ -188,7 +188,7 @@ function TodoList({addTodo}) {
 
         </div>
         
-        <div className="completed-todo-container md:p-3">
+        <div className="completed-todo-container md:w-[45%] md:p-3">
             <header className="px-5">
                 <h2 className= "font-medium txt-black/90 text-md mb-2 dark:text-white/90">Completed Todos</h2>
                 <h5 > <span className="font-medium text-md text-green-900 p-1 bg-green-100 rounded-full ">{completedTodos.length}</span></h5>
@@ -214,7 +214,7 @@ function TodoList({addTodo}) {
 
         </div>
             {/* <button onClick={(e)=>localStorage.clear()}>Clearrrr</button> */}
-       <section className="update-form ">
+       <section className="update-form fixed ">
             {updateTodoFormToggle && <UpdateTodoForm todoToEdit={selectedTodo} todos={todos} setTodos={setTodos} setUpdateTodoFormToggle={setUpdateTodoFormToggle} setSelectedTodo={setSelectedTodo} updateTodoFormToggle={updateTodoFormToggle} />}
        </section>
 
