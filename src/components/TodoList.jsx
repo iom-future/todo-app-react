@@ -148,24 +148,25 @@ function TodoList({addTodo}) {
   return (
     <section className={`pt-5 flex flex-col md:flex-row gap-5 md:justify-between 
      dark:bg-slate-700 bg-[#FAFAF9] min-h-screen`}>
-
+{/* 
+<div className=" "></div> */}
         <div className="todo-container md:p-3">
             <header className="px-5">
-                <h2 className= "font-semibold text-xl mb-2 text-black dark:text-white">Todos</h2>
+                <h2 className= "font-medium text-md mb-2 text-black/90 dark:text-white/90">Todos</h2>
                 <h5 className=" "> <span className="font-medium text-md text-green-900 p-1  rounded-full  bg-green-100 ">{todos.length}</span></h5>
             </header>
 
             <div className="todo-list-area grid grid-cols-1 gap-2 mt-3">
                 {!todos.length>0 ? <h3 className="text-lg font-semibold text-center text-gray-400">All Task Completed</h3>:todos.map((todo)=>(
-                    <div key={todo.id} className={`flex w-[90%] gap-2 border-2  ${priorityBorderColor[todo.priority]} rounded-xl mx-auto p-1 items-center`}>
-                        <div className="p-2 h-full flex items-center  w-[10%] bg-white rounded-lg" >
-                            <input type="checkbox" className=" w-full accent-green-600 size-9" onChange={checkTodo} id={todo.id} />
+                    <div key={todo.id} className={`flex w-[90%] gap-2 border-2 border-gray-400  ${priorityBorderColor[todo.priority]}  rounded-xl mx-auto p-1 items-center`}>
+                        <div className="p-2 h-full flex items-center  w-[10%] bg-white dark:bg-slate-600 rounded-lg" >
+                            <input type="checkbox" className="   mx-auto accent-green-600 " onChange={checkTodo} id={todo.id} />
                         </div>
                         
-                        <div className="todo-info  bg-white border-l-2  w-[90%] p-2 pl-3 rounded-lg">
+                        <div className="todo-info dark:bg-slate-600 bg-slate-200   w-[90%] p-2 pl-3 rounded-lg">
                            <div className="flex justify-between items-center mb-2">
-                             <h3 className={`font-semibold text-lg mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
-                                <FontAwesomeIcon icon={faPen} size="xs" onClick={editTodo} id={todo.id} />
+                             <h3 className={`font-semibold text-lg dark:text-white mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
+                                <FontAwesomeIcon icon={faPen} size="xs" className="dark:text-white/80 text-black/80" onClick={editTodo} id={todo.id} />
                                
                            </div>
                            
@@ -189,18 +190,18 @@ function TodoList({addTodo}) {
         
         <div className="completed-todo-container md:p-3">
             <header className="px-5">
-                <h2 className= "font-medium text-lg mb-2 dark:text-white">Completed Todos</h2>
+                <h2 className= "font-medium txt-black/90 text-md mb-2 dark:text-white/90">Completed Todos</h2>
                 <h5 > <span className="font-medium text-md text-green-900 p-1 bg-green-100 rounded-full ">{completedTodos.length}</span></h5>
             </header>
          <div className="todo-list-area grid grid-cols-1 gap-2 mt-3">
             {!completedTodos.length>0 ? <h3 className="text-lg font-semibold text-center text-gray-400 " >No Completed Todo Yet</h3>:completedTodos.map((todo)=>(
-                <div key={todo.id} className="flex w-[90%] gap-2 border-2 rounded-xl mx-auto p-2 items-center">
-                    <div className="p-2 h-full flex items-center  w-[10%] bg-white rounded-lg" >
-                        <input type="checkbox" className=" w-full accent-green-600 size-9 " onChange={reverseCheckedTodo}  id={todo.id} defaultChecked />
+                <div key={todo.id} className="flex w-[90%] gap-2 border-2 border-gray-400  rounded-xl mx-auto p-1 items-center">
+                    <div className="p-2 h-full flex items-center dark:bg-slate-600 w-[10%] bg-white rounded-lg" >
+                        <input type="checkbox" className="   mx-auto accent-green-600 " onChange={reverseCheckedTodo}  id={todo.id} defaultChecked />
                     </div>
                     
-                    <div className="todo-info  bg-white border-l-2 w-[90%] p-2 pl-3 rounded-lg">
-                        <h3 className={`font-semibold text-lg mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
+                    <div className="todo-info dark:bg-slate-600 bg-slate-100  w-[90%] p-2 pl-3 rounded-lg">
+                        <h3 className={`font-semibold text-lg dark:text-white mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
 
                      
                         <p className="text-sm bg-green-200 p-1 pl-2 inline-block  rounded-lg">{todo.tags}</p>
@@ -213,9 +214,11 @@ function TodoList({addTodo}) {
 
         </div>
             {/* <button onClick={(e)=>localStorage.clear()}>Clearrrr</button> */}
-       <section className="update-form">
-            {updateTodoFormToggle && <UpdateTodoForm todoToEdit={selectedTodo} todos={todos} setTodos={setTodos} setUpdateTodoFormToggle={setUpdateTodoFormToggle} updateTodoFormToggle={updateTodoFormToggle} />}
+       <section className="update-form ">
+            {updateTodoFormToggle && <UpdateTodoForm todoToEdit={selectedTodo} todos={todos} setTodos={setTodos} setUpdateTodoFormToggle={setUpdateTodoFormToggle} setSelectedTodo={setSelectedTodo} updateTodoFormToggle={updateTodoFormToggle} />}
        </section>
+
+
     </section>
   )
 }

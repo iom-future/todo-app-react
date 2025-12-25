@@ -4,7 +4,7 @@ import TodoInfoProvider from "./TodoInfoContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 
-function UpdateTodoForm({todoToEdit,setTodos,todos,setUpdateTodoFormToggle,updateTodoFormToggle}) {
+function UpdateTodoForm({todoToEdit,setTodos,todos,setUpdateTodoFormToggle,updateTodoFormToggle,setSelectedTodo}) {
      let initialState = todoToEdit;
        //used useReducer hook cause im setting multiple state at once
        let [editedTodoState,dispatch]=useReducer(updateTodoFormReducer,initialState);
@@ -15,10 +15,12 @@ function UpdateTodoForm({todoToEdit,setTodos,todos,setUpdateTodoFormToggle,updat
         console.log("update successful")
         console.log(editedTodoState)
         setTodos(()=>{
-            return todos.map((todo)=>todo.id===editedTodoState.id? {...todo,title:editedTodoState.title,priority:editedTodoState.priority,tags:editedTodoState.tags,date:editedTodoState.date}:todo)
+            return todos.map((todo)=>todo.id===editedTodoState.id? {...todo,title:editedTodoState.title||todo.title,priority:editedTodoState.priority||todo.priority,tags:editedTodoState.tags||todo.tags,date:editedTodoState.date||todo.date}:todo)
         })
         //remove form
         setUpdateTodoFormToggle(!updateTodoFormToggle)
+
+        //setSelectedTodo({});
            
     }
 
@@ -28,7 +30,7 @@ function UpdateTodoForm({todoToEdit,setTodos,todos,setUpdateTodoFormToggle,updat
     },[todos])
   return (
     <div className="fixed w-full h-screen bg-black/50 top-0 flex p-5 z-50 justify-center flex-col backdrop-blur-md gap-7">
-        <FontAwesomeIcon icon={faX} className="text-white " onClick={()=>setUpdateTodoFormToggle(!updateTodoFormToggle)} />
+        <FontAwesomeIcon icon={faX} className="text-white " onClick={()=>{setUpdateTodoFormToggle(!updateTodoFormToggle)}} />
         <h2 className="text-3xl text-white font-medium text-center " >Edit Todo</h2>
         <form action="" onSubmit={editTodo} className="flex flex-col gap-6">
             <div>
