@@ -15,12 +15,12 @@ function NavBar() {
   return (
     <div className="w-full bg-green-600 ">
         
-        <nav className='flex justify-between w-full p-2 '>
+        <nav className='flex justify-between w-full p-3 '>
             <div className='logo-area'>
                 <img src={logo} alt="app-logo" className='size-10 rounded-full' />
             </div>
 
-            <div className={`theme-toggle max-w-[70px] h-[25px] ${userTheme==="light"?"bg-yellow-400":"bg-slate-700"} w-[20%] flex justify-between rounded-full  items-center`}>
+            <div className={`theme-toggle max-w-[70px] h-[25px] ${userTheme==="light"?"bg-yellow-400":"bg-slate-700"} w-[20%] flex justify-between rounded-full   items-center`}>
             <div className ={`sun-wrapper  h-full w-[30%]`} onClick={()=>setUserTheme("light")}>
                   <FontAwesomeIcon icon={faSun} className={`text-white   ${userTheme==="dark"?"hidden":""}  pl-1` } />
             </div>
