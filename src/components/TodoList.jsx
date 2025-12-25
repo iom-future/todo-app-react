@@ -147,7 +147,7 @@ function TodoList({addTodo}) {
     
   return (
     <section className={`pt-5 flex flex-col md:flex-row gap-5 md:justify-between 
-     dark:bg-slate-700 bg-[#FAFAF9] min-h-screen`}>
+     dark:bg-slate-700 bg-[#FAFAF9] min-h-screen rounded-t-xl relative -top-2`}>
 {/* 
 <div className=" "></div> */}
         <div className="todo-container md:p-3 md:w-[45%]">
