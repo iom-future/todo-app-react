@@ -130,8 +130,8 @@ function TodoList({addTodo}) {
     let currentDate = new Date();
     //deadlineCalculator
     let isDeadline = (date)=>{
-        let dateArr = date.split("-");
-         console.log(dateArr)
+    let dateArr = date.split("-");
+
          if((Number(dateArr[1])>currentDate.getMonth()+1||Number(dateArr[2])>currentDate.getDate())||Number(dateArr[0])>currentDate.getFullYear()){
                 return false; //the dueDate is further ahead
            } 
