@@ -54,7 +54,9 @@ function App() {
     
      
 
-     <button className="p-2 bg-green-500 rounded-full size-12 fixed right-2 bottom-2 transition-all duration-300 ease-in-out hover:-translate-y-2 " onClick={(e)=>{setTodoMenuToggle(!todoMenuToggle);e.currentTarget.classList.toggle("rotate-45")}}><FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}} ref={addBtn} /></button>
+     <button className="p-2 bg-green-500 rounded-full size-12 hover:shadow-lg hover:shadow-green-500 fixed z-[50] right-2 bottom-2 transition-all duration-300 ease-in-out hover:-translate-y-2 " onClick={(e)=>{setTodoMenuToggle(!todoMenuToggle);e.currentTarget.classList.toggle("rotate-45")}}><FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}} ref={addBtn} /></button>
+
+    {/* <button className="p-2 bg-green-500 rounded-full size-12  fixed z-[50] right-2 bottom-3 transition-all duration-300 ease-in-out hover:-translate-y-2 " onClick={(e)=>{setTodoMenuToggle(!todoMenuToggle);e.currentTarget.classList.toggle("rotate-45")}}><FontAwesomeIcon icon={faPlus} style={{color: "#ffffff",}} ref={addBtn} /></button> */}
     </div>
   )
 }

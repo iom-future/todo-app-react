@@ -25,11 +25,11 @@ function UpdateTodoForm({todoToEdit,setTodos,todos,setUpdateTodoFormToggle,updat
     }
 
     useEffect(()=>{
-        console.log("this your updated todo")
+        console.log(todoToEdit)
     
     },[todos])
   return (
-    <div className="fixed w-full h-screen bg-black/50 top-0 flex p-5 z-50 justify-center flex-col backdrop-blur-md gap-7">
+    <div className="fixed z-[100] w-full h-screen bg-black/50 top-0 flex p-5  justify-center flex-col backdrop-blur-md gap-7">
         <FontAwesomeIcon icon={faX} className="text-white " onClick={()=>{setUpdateTodoFormToggle(!updateTodoFormToggle)}} />
         <h2 className="text-3xl text-white font-medium text-center " >Edit Todo</h2>
         <form action="" onSubmit={editTodo} className="flex flex-col gap-6">
@@ -67,7 +67,7 @@ function UpdateTodoForm({todoToEdit,setTodos,todos,setUpdateTodoFormToggle,updat
            
            
            
-            <button type="submit" className="w-full p-3  rounded-xl text-xl font-semibold text-white bg-green-500">Edit Task</button>
+            <button type="submit" className="w-full p-3 hover:border-b-2 border-green-700 rounded-xl text-xl font-semibold text-white bg-green-500">Edit Task</button>
         </form>
 
     

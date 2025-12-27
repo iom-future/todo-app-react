@@ -67,20 +67,12 @@ function TodoList({addTodo}) {
        localStorage.setItem("todos",JSON.stringify(todos))
 }, [todos]);
 
-    
-    const editTodo= (e)=>{
+   let [selectedTodoId, setSelectedTodoId] = useState(null); // Store ID instead
 
-        //get the todo user wants to edit
-        setSelectedTodo(todos.find((todo) => todo.id === Number(e.target.id)))
-
-
-        //spring up update form
-        setUpdateTodoFormToggle(!updateTodoFormToggle);
-
-        console.log("todo has been selected",e.target.id)
-      
-        
-    }
+    const editTodo = (e) => {
+        setSelectedTodoId(Number(e.target.id));
+        setUpdateTodoFormToggle(true);
+}
 
     // useEffect(()=>{
     //         console.log(selectedTodo)
@@ -115,6 +107,7 @@ function TodoList({addTodo}) {
 
     useEffect(()=>{
         console.log(`the selected to from the useEffect is: ${selectedTodo}`)
+        console.log(todos);
     },[selectedTodo])
 
     //priority class mapping
@@ -148,8 +141,7 @@ function TodoList({addTodo}) {
   return (
     <section className={`pt-5 flex flex-col md:flex-row gap-5 md:justify-between 
      dark:bg-slate-700 bg-[#FAFAF9] min-h-screen rounded-t-xl relative -top-2`}>
-{/* 
-<div className=" "></div> */}
+
         <div className="todo-container md:p-3 md:w-[45%]">
             <header className="px-5">
                 <h2 className= "font-medium text-md mb-2 text-black/90 dark:text-white/90">Todos</h2>
@@ -214,8 +206,8 @@ function TodoList({addTodo}) {
 
         </div>
             {/* <button onClick={(e)=>localStorage.clear()}>Clearrrr</button> */}
-       <section className="update-form fixed ">
-            {updateTodoFormToggle && <UpdateTodoForm todoToEdit={selectedTodo} todos={todos} setTodos={setTodos} setUpdateTodoFormToggle={setUpdateTodoFormToggle} setSelectedTodo={setSelectedTodo} updateTodoFormToggle={updateTodoFormToggle} />}
+       <section className="update-form relative z-[100]">
+            {updateTodoFormToggle && <UpdateTodoForm todoToEdit={todos.find(todo => todo.id === selectedTodoId)} todos={todos} setTodos={setTodos} setUpdateTodoFormToggle={setUpdateTodoFormToggle} setSelectedTodo={setSelectedTodo} updateTodoFormToggle={updateTodoFormToggle} />}
        </section>
 
 
