@@ -4,7 +4,7 @@ import { TodoInfoContext } from "./TodoInfoContext"
 import UpdateTodoForm from './UpdateTodoForm'
 import {ThemeContext} from "./ThemeContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen,faClock,faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrashCan, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 function TodoList({addTodo}) {
     //consume from TodoInfoContext to update the form state after goal is being added
     let {todoState,dispatch} = useContext(TodoInfoContext);
@@ -105,6 +105,12 @@ function TodoList({addTodo}) {
        )
     }
 
+
+    const deleteTodo = (e)=>{
+        setTodos((currentTodos)=>{
+            return currentTodos.filter((todo)=>todo.id!==Number(e.target.id));
+        })
+    }
     useEffect(()=>{
         console.log(`the selected to from the useEffect is: ${selectedTodo}`)
         console.log(todos);
@@ -158,7 +164,11 @@ function TodoList({addTodo}) {
                         <div className="todo-info dark:bg-slate-600 bg-slate-200   w-[90%] p-2 pl-3 rounded-lg">
                            <div className="flex justify-between items-center mb-2">
                              <h3 className={`font-semibold text-lg dark:text-white mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
-                                <FontAwesomeIcon icon={faPen} size="xs" className="dark:text-white/80 text-black/80" onClick={editTodo} id={todo.id} />
+                                <div className="todo-icons flex gap-3 items-center">
+                                    <FontAwesomeIcon icon={faTrashCan} id={todo.id} onClick={deleteTodo} />
+                                    <FontAwesomeIcon icon={faPen} size="xs" className="dark:text-white/80 text-black/80" onClick={editTodo} id={todo.id} />
+                                </div>
+                               
                                
                            </div>
                            
