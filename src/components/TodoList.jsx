@@ -33,7 +33,7 @@ function TodoList({addTodo}) {
                /*  currentTodo.at(-1).id+1: makes sure that each ID is gotten from the increment of the last ID,
                in order to avoid duplicate ID if one element is removed(thats if we were using the array length)
                */
-            return [...currentTodo,{id:currentTodo.length>0?currentTodo.at(-1).id+1:currentTodo.length, title:todoState.title,tags:todoState.tags,priority:todoState.priority,date:todoState.dueDate,isCompleted:todoState.isCompleted}]
+            return [...currentTodo,{id:currentTodo.length>0?currentTodo.at(-1).id+1:0, title:todoState.title,tags:todoState.tags,priority:todoState.priority,date:todoState.dueDate,isCompleted:todoState.isCompleted}]
         })
         //anytime a goal is added reset the form todo state
         dispatch({type:"RESET"})
@@ -69,8 +69,8 @@ function TodoList({addTodo}) {
 
    let [selectedTodoId, setSelectedTodoId] = useState(null); // Store ID instead
 
-    const editTodo = (e) => {
-        setSelectedTodoId(Number(e.target.id));
+    const editTodo = (todoId) => {
+        setSelectedTodoId(todoId);
         setUpdateTodoFormToggle(true);
 }
 
@@ -86,11 +86,20 @@ function TodoList({addTodo}) {
         // console.log(todos)
         // console.log("checked goal")
     }
+    
     const reverseCheckedTodo = (e)=>{
         //get the unchecked todo
-        let uncheckedTodo = completedTodos.find((completedTodo)=>completedTodo.id===Number(e.target.id))
+       let uncheckedTodo= completedTodos.find((completedTodo)=>completedTodo.id===Number(e.target.id))
         //change the state of the unChecked todo to not being completed
-        uncheckedTodo.isCompleted = false;
+       
+           uncheckedTodo= {
+                ...uncheckedTodo,
+                isCompleted :false
+            }
+       
+
+      
+       console.log(todos.at(-1));
         // remove the unchecked todo from the completed todo 
          setCompletedTodos((currentCompletedTodo)=>{
             return currentCompletedTodo.filter(completedTodo => completedTodo.id!==Number(e.target.id))
@@ -106,9 +115,9 @@ function TodoList({addTodo}) {
     }
 
 
-    const deleteTodo = (e)=>{
+    const deleteTodo = (todoId)=>{
         setTodos((currentTodos)=>{
-            return currentTodos.filter((todo)=>todo.id!==Number(e.target.id));
+            return currentTodos.filter((todo)=>todo.id!==todoId);
         })
     }
     useEffect(()=>{
@@ -163,10 +172,10 @@ function TodoList({addTodo}) {
                         
                         <div className="todo-info dark:bg-slate-600 bg-slate-200   w-[90%] p-2 pl-3 rounded-lg">
                            <div className="flex justify-between items-center mb-2">
-                             <h3 className={`font-semibold text-lg dark:text-white mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
+                             <h3 className={`font-semibold text-lg dark:text-white mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}ID:{todo.id}</h3>
                                 <div className="todo-icons flex gap-3 items-center">
-                                    <FontAwesomeIcon icon={faTrashCan} id={todo.id} onClick={deleteTodo} />
-                                    <FontAwesomeIcon icon={faPen} size="xs" className="dark:text-white/80 text-black/80" onClick={editTodo} id={todo.id} />
+                                    <FontAwesomeIcon icon={faTrashCan} id={todo.id} onClick={()=>{deleteTodo(todo.id)}} />
+                                    <FontAwesomeIcon icon={faPen} size="xs" className="dark:text-white/80 text-black/80" onClick={()=>{editTodo(todo.id)}} />
                                 </div>
                                
                                
@@ -203,7 +212,7 @@ function TodoList({addTodo}) {
                     </div>
                     
                     <div className="todo-info dark:bg-slate-600 bg-slate-100  w-[90%] p-2 pl-3 rounded-lg">
-                        <h3 className={`font-semibold text-lg dark:text-white mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
+                        <h3 className={`font-semibold text-lg dark:text-white mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}ID:{todo.id}</h3>
 
                      
                         <p className="text-sm bg-green-200 p-1 pl-2 inline-block  rounded-lg">{todo.tags}</p>
