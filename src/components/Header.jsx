@@ -15,7 +15,7 @@ function Header() {
   return (
     <section className='min-h-[150px] p-5 bg-green-600 text-white flex flex-col justify-end gap-2'>
         <div>
-            <h1 className="text-3xl">Hello,<span className="font-bold text-3xl">User</span></h1>
+            <h1 className="text-3xl mb-1">Hello,<span className="font-bold text-3xl">User</span></h1>
             <h3 className="text-gray-100 font-medium">{date.day}, {date.month}</h3>
         </div>
         <div>
