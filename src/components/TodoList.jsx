@@ -242,9 +242,9 @@ function TodoList({addTodo}) {
 
         </div>
             {/* <button onClick={(e)=>localStorage.clear()}>Clearrrr</button> */}
-       <section className="update-form relative z-[100]">
+    
             {updateTodoFormToggle && <UpdateTodoForm todoToEdit={todos.find(todo => todo.id === selectedTodoId)} todos={todos} setTodos={setTodos} setUpdateTodoFormToggle={setUpdateTodoFormToggle} setSelectedTodo={setSelectedTodo} updateTodoFormToggle={updateTodoFormToggle} />}
-       </section>
+      
 
 
     </section>
