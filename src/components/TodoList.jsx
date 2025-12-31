@@ -177,20 +177,29 @@ function TodoList({addTodo}) {
                             <input type="checkbox" className="   mx-auto accent-green-600 " onChange={checkTodo} id={todo.id} />
                         </div>
                         
-                        <div className="todo-info dark:bg-slate-600 bg-slate-200   w-[90%] p-2 pl-3 rounded-lg">
-                           <div className="flex justify-between items-center mb-2">
-                             <h3 className={`font-semibold text-lg dark:text-white mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
-                                <div className="todo-icons flex gap-3 items-center">
-                                    <FontAwesomeIcon icon={faTrashCan} id={todo.id} className="dark:text-white/80" onClick={()=>{deleteTodo(todo.id)}} />
+                        <div className="todo-info dark:bg-slate-600 bg-slate-100   w-[90%] p-2 pl-3 rounded-lg">
+                           <div className="flex justify-between flex-col items-center gap-2 mb-2">
+
+                            <div className="flex justify-between w-full">
+                                <p className="text-sm bg-green-200 px-3  text-green-900 font-medium inline-block  rounded-lg">{todo.tags}</p>
+                                 <div className="todo-icons flex gap-3 items-center">
+                                    <FontAwesomeIcon icon={faTrashCan} id={todo.id} className="dark:text-white/80 text-black/80" onClick={()=>{deleteTodo(todo.id)}} />
                                     <FontAwesomeIcon icon={faPen} size="xs" className="dark:text-white/80 text-black/80" onClick={()=>{editTodo(todo.id)}} />
                                 </div>
+                            </div>
+                            
+                            <div className="w-full">
+                                  <h3 className={`font-semibold text-xl text-left dark:text-white mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
+                            </div>
+                           
+                               
                                
                                
                            </div>
                            
-                              <div className="more-info flex justify-between items-center">
-                                <p className="text-sm bg-green-200 px-2 text-green-900 font-medium inline-block  rounded-lg">{todo.tags}</p>
-                                <div className={`date-info flex items-center px-2 rounded-lg font-medium ${isDeadline(todo.date)?"bg-red-200 text-red-900":"bg-gray-200"} `}>
+                              <div className="more-info flex justify-end items-center">
+                                
+                                <div className={`date-info flex items-center px-2  rounded-lg font-medium ${isDeadline(todo.date)?"bg-red-200 text-red-900":"bg-gray-300"} `}>
                                     <FontAwesomeIcon icon={faCalendarCheck} className="" />
                                      <p className="text-sm">{dateConverter(todo.date)}</p>
                                 </div>
@@ -219,10 +228,11 @@ function TodoList({addTodo}) {
                     </div>
                     
                     <div className="todo-info dark:bg-slate-600 bg-slate-100  w-[90%] p-2 pl-3 rounded-lg">
+                         <p className="text-sm bg-green-200 text-green-900 px-3 inline-block font-medium rounded-lg">{todo.tags}</p>
                         <h3 className={`font-semibold text-lg dark:text-white mb-2 ${todo.isCompleted?"line-through":""} `}>{todo.title}</h3>
 
                      
-                        <p className="text-sm bg-green-200 p-1 pl-2 inline-block  rounded-lg">{todo.tags}</p>
+                       
                     </div>
                    
                 </div>
