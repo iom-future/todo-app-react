@@ -29,12 +29,12 @@ function UpdateTodoForm({todoToEdit,setTodos,todos,setUpdateTodoFormToggle,updat
     
     },[todos])
   return (
-    <div className="fixed z-[100] flex align-center w-full h-screen bg-black/50 top-0 p-5 backdrop-blur-md gap-7">
-        <div className="justify-center flex flex-col gap-7 h-full w-[90%] max-w-[700px] bg-white p-5 mx-auto rounded-lg">
+    <div className="fixed z-[100] flex items-center justify-center w-full h-screen bg-black/50 top-0 p-5 backdrop-blur-md gap-7">
+        <div className="justify-center flex flex-col gap-7 relative w-[90%] h-[90%] max-w-[700px] bg-white p-7 mx-auto rounded-lg">
 
 
    
-        <FontAwesomeIcon icon={faX} className=" " onClick={()=>{setUpdateTodoFormToggle(!updateTodoFormToggle)}} />
+        <FontAwesomeIcon icon={faX} className=" absolute top-5 right-3" onClick={()=>{setUpdateTodoFormToggle(!updateTodoFormToggle)}} />
         <h2 className="text-3xl text-green-500 font-medium text-center " >Edit Todo</h2>
         <form action="" onSubmit={editTodo} className="flex flex-col gap-6">
             <div>
